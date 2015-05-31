@@ -1,9 +1,0 @@
-build/**
-lib/** 
-doc/**
-*.class
-*.py
-*.pyc
-*.so
-*.sergei
-*~
