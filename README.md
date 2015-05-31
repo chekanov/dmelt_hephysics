@@ -17,6 +17,14 @@ KTjet - uses pseudorapidity and float values. A fast light-weight implementation
 SCJet - uses rapidity for merging of particles and double values. 
 </li>
 
+<li>
+SCJet - uses rapidity for merging of particles and double values.
+</li>
+
+<li>
+JetN2 - Java implementation of the jet algorithm by I.Pogrebnyak using the N^2 FastJet approach.
+</li>
+
 </ul>
 
 Stand-alone kT algorithms using the above codding, together with Java and C++ implementations, can be found in the 
@@ -26,13 +34,13 @@ Stand-alone kT algorithms using the above codding, together with Java and C++ im
 
 HePhysics  is a contributed package to the <a href="http://jwork.org/dmelt/">DataMelt</a> data-analysis environment and can be used in Java, Jython and Groovy.  It also used for vonline alidation analysis scripts by the <a href="http://atlaswww.hep.anl.gov/hepsim/">HepSim</a> Monte Carlo database for current and planned particle experiments.
 
-If you have noticed bugs and  made changes, please  inform  scavis@jwork.org .
+If you have noticed bugs and  made changes, please  inform  dmelt@jwork.org .
 In this case, your changes will be included to the next SCaVis release.
 
 <h1>How to compile and test</h1>
 
 You need to install Java 7 JDK (or above) and Athe ANT tool  to build the package. Then compile and run a simple test as:
-To compile, copy "lib" from the DMelt (http://jwork.org/dmelt) program.
+To compile, copy the "lib" directory from the <a href="http://jwork.org/dmelt/">DataMelt</a>.
 Then:
 
 <pre>
