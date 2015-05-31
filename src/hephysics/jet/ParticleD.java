@@ -67,6 +67,35 @@ public class ParticleD implements Comparable<ParticleD>, Serializable {
 		cachePhiRapidity();
 	}
 
+        /**
+         * Set 4-momentum of a particle using transverse momentum (pt),
+         * pseudorapidity (eta) and azimuthal angle (phi) and mass (m). In this
+         * case, the energy is Math.sqrt(px*px+py*py+pz*pz-m*m).
+         * <p>
+         * 
+         * @param pt
+         *            transverse momentum of a particle.
+         * @param eta
+         *            eta (pseudorapidity) .
+         * @param phi
+         *            azimuthal angle
+         * @param m
+         *            mass
+         */
+        public void setPtEtaPhiM(double pt, double eta, double phi, double m) {
+                pt2 = pt*pt;
+                double apt=Math.abs(pt); 
+                px = apt * Math.cos(phi);
+                py = apt * Math.sin(phi);
+                pz = apt * Math.sinh(eta);
+                double ee = px * px + py * py + pz * pz - m * m;
+                if (ee < 0)
+                        ee = 0;
+                else
+                        ee = Math.sqrt(ee);
+                setPxPyPzE(px, py, pz, ee);
+        }
+
 	/**
 	 * Compute pseudorapidity.
 	 *
