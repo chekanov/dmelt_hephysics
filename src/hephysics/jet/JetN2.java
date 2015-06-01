@@ -224,12 +224,13 @@ public class JetN2 {
 		for (int i = 0; i < sjets.size(); i++) {
 			ParticleD lp = (ParticleD) sjets.get(i);
 			List con = lp.getConstituentsList();
-			String spx = formatter.format(lp.getRapidity());
-			String spy = formatter.format(lp.getPhi());
-			String spz = formatter.format(lp.getPt());
-			tmp = tmp + "n=" + Integer.toString(i) + " y=" + spx + " phi="
-					+ spy + " pt=" + spz + " const="
-					+ Integer.toString(con.size()) + "\n";
+                        String s1 = String.format("%15.8f", lp.getRapidity());
+                        String s2 = String.format("%15.8f", lp.phi());
+                        String s3 = String.format("%15.8f", lp.getPt());
+                        String nc = Integer.toString(con.size());
+			tmp = tmp + "n=" + Integer.toString(i) + " y=" + s1 + " phi="
+					+ s2 + " pt=" + s3 + " const="
+					+ nc + "\n";
 		}
 
 		return tmp;
