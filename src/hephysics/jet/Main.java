@@ -2,6 +2,7 @@ package hephysics.jet;
 
 import java.util.Random;
 
+import net.jafama.FastMath;
 
 import hephysics.particle.LParticle;
 
@@ -67,8 +68,8 @@ public class Main
 		     double ran1= r.nextDouble(); 
 		     double ran2= r.nextDouble();
 		    // Isotropic angles to give a random direction 
-		     double theta = Math.acos( 2.0*ran1 - 1.0 );
-		     double phi   = 2.0 *Math.PI*ran2;
+		     double theta = FastMath.acos( 2.0*ran1 - 1.0 );
+		     double phi   = 2.0 *FastMath.PI*ran2;
 
 		     // rho 4-momentum components in lab frame
                      G.setThetaPhiP(theta,phi,P);   

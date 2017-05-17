@@ -3,6 +3,7 @@ import java.io.Serializable;
 import java.text.*;
 import jhplot.gui.HelpBrowser;
 import hephysics.particle.LParticle;
+import net.jafama.FastMath;
 
 /**
  * A class representing a jet or particle with pre-computed et, et2, phi, eta (float values). It uses floats to speedup calculations for jet fundings. The class is used by light-weight  {@link hephysics.jets.KTjet} algorithm.  
@@ -31,7 +32,7 @@ public class ParticleF implements Comparable<ParticleF>, Serializable  {
 	private DecimalFormat formatter = new DecimalFormat("0.###E0");
 
 
-	private final double PI2 = Math.PI * 2;
+	private final double PI2 = FastMath.PI * 2;
 
 	/**
 	 * Initialize pseudoparticle.
@@ -140,12 +141,12 @@ public class ParticleF implements Comparable<ParticleF>, Serializable  {
 
 	public LParticle getLParticle() {
 
-		double apt = Math.abs(this.et);
-		double px = apt * Math.cos(this.phi);
-		double py = apt * Math.sin(this.phi);
-		double pz = apt * Math.sinh(this.eta);
-		double theta=Math.atan2(Math.sqrt(et2),pz);
-		double energy = this.et/Math.sin(theta);
+		double apt = FastMath.abs(this.et);
+		double px = apt * FastMath.cos(this.phi);
+		double py = apt * FastMath.sin(this.phi);
+		double pz = apt * FastMath.sinh(this.eta);
+		double theta=FastMath.atan2(FastMath.sqrt(et2),pz);
+		double energy = this.et/FastMath.sin(theta);
 		LParticle pp = new LParticle(px,py,pz,energy);
 		return pp;
 

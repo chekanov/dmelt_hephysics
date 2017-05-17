@@ -4,6 +4,7 @@ import hephysics.vec.*;
 import java.io.Serializable;
 import java.util.Formatter;
 import jhplot.gui.HelpBrowser;
+import net.jafama.FastMath;
 
 /**
  * a HEP-type basic particle based on 4-Lorentz vector.
@@ -162,7 +163,7 @@ public class HEParticle extends LParticle implements Serializable {
          */
         public double rapidity()  {
                 double rapidity=-10e10;
-                if (e()>pz())  rapidity=0.5*Math.log( (e()+pz())/(e()-pz()) );
+                if (e()>pz())  rapidity=0.5*FastMath.log( (e()+pz())/(e()-pz()) );
                 return rapidity; 
         }
 

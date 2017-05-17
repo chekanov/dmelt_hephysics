@@ -1,6 +1,7 @@
 package hephysics.vec;
 
 import java.io.Serializable;
+import net.jafama.FastMath;
 
 /**
  * A Hep3Vector representing a point in space.
@@ -46,19 +47,19 @@ private Representation _representation;
    
    private void cartesianToCylindricalR()
    {
-      _xy  = Math.sqrt(_x*_x+_y*_y);
+      _xy  = FastMath.sqrt(_x*_x+_y*_y);
    }
    
    private void cartesianToPhi()
    {
-      _phi = Math.atan2(_y,_x);
+      _phi = FastMath.atan2(_y,_x);
    }
    
    private void cartesianToTheta()
    {
       if (Double.isNaN(_xy))
          cartesianToCylindricalR();
-      _theta = Math.atan2(_xy,_z);
+      _theta = FastMath.atan2(_xy,_z);
    }
    
    public double magnitude()
@@ -106,28 +107,28 @@ private Representation _representation;
       _x = vec.x();
       _y = vec.y();
       _z = vec.z();
-      _xyz = Math.sqrt(_x*_x + _y*_y + _z*_z);
+      _xyz = FastMath.sqrt(_x*_x + _y*_y + _z*_z);
       _xy = _phi = _theta = Double.NaN;
    }
    
    private void cylindricalToCartesianX()
    {
-      _x = _xy*Math.cos(_phi);
+      _x = _xy*FastMath.cos(_phi);
    }
    
    private void sphericalToCartesianX()
    {
-      _x = _xyz*Math.cos(_phi)*Math.sin(_theta);
+      _x = _xyz*FastMath.cos(_phi)*FastMath.sin(_theta);
    }
    
    private void sphericalToCartesianY()
    {
-      _y = _xyz*Math.sin(_phi)*Math.sin(_theta);
+      _y = _xyz*FastMath.sin(_phi)*FastMath.sin(_theta);
    }
    
    private void sphericalToCartesianZ()
    {
-      _z = _xyz*Math.cos(_theta);
+      _z = _xyz*FastMath.cos(_theta);
    }
    
    /**
@@ -147,7 +148,7 @@ private Representation _representation;
    
    private void cylindricalToCartesianY()
    {
-      _y = _xy*Math.sin(_phi);
+      _y = _xy*FastMath.sin(_phi);
    }
    
    
@@ -178,7 +179,7 @@ private Representation _representation;
    
    private void sphericalToCylindricalR()
    {
-      _xy = _xyz*Math.sin(_theta);
+      _xy = _xyz*FastMath.sin(_theta);
    }
    
    /**
@@ -233,7 +234,7 @@ private Representation _representation;
    
    private void cylindricalToTheta()
    {
-      _theta = Math.atan2(_xy,_z);
+      _theta = FastMath.atan2(_xy,_z);
    }
    
    /**
@@ -245,7 +246,7 @@ private Representation _representation;
          return _x/_xy;
       if (Double.isNaN(_phi))
          cartesianToPhi();
-      return Math.cos(_phi);
+      return FastMath.cos(_phi);
    }
    
    /**
@@ -257,7 +258,7 @@ private Representation _representation;
          return _y/_xy;
       if (Double.isNaN(_phi))
          cartesianToPhi();
-      return Math.sin(_phi);
+      return FastMath.sin(_phi);
    }
    
    /**
@@ -274,7 +275,7 @@ private Representation _representation;
             case Cartesian: cartesianToTheta(); break;
             case Cylindrical: cylindricalToTheta(); break;
          }
-         return Math.sin(_theta);
+         return FastMath.sin(_theta);
    }
    
    /**
@@ -291,7 +292,7 @@ private Representation _representation;
             case Cartesian: cartesianToTheta(); break;
             case Cylindrical: cylindricalToTheta(); break;
          }
-         return Math.cos(_theta);
+         return FastMath.cos(_theta);
    }
    
    /**
@@ -321,9 +322,9 @@ private Representation _representation;
     */
    public boolean equals(SpacePoint spt, double precision)
    {
-      return ( Math.abs(x() - spt.x()) < precision ) &&
-             ( Math.abs(y() - spt.y()) < precision ) &&
-             ( Math.abs(z() - spt.z()) < precision );
+      return ( FastMath.abs(x() - spt.x()) < precision ) &&
+             ( FastMath.abs(y() - spt.y()) < precision ) &&
+             ( FastMath.abs(z() - spt.z()) < precision );
    }
    
    /**
@@ -335,9 +336,9 @@ private Representation _representation;
     */
    public boolean equals(Hep3Vector spt, double precision)
    {
-      return  ( Math.abs(x() - spt.x()) < precision ) &&
-              ( Math.abs(y() - spt.y()) < precision ) &&
-              ( Math.abs(z() - spt.z()) < precision );
+      return  ( FastMath.abs(x() - spt.x()) < precision ) &&
+              ( FastMath.abs(y() - spt.y()) < precision ) &&
+              ( FastMath.abs(z() - spt.z()) < precision );
    }
    
    /**
@@ -372,7 +373,7 @@ private Representation _representation;
       double dx = spt2.x() - spt1.x();
       double dy = spt2.y() - spt1.y();
       double dz = spt2.z() - spt1.z();
-      return Math.sqrt( dx*dx + dy*dy + dz*dz );
+      return FastMath.sqrt( dx*dx + dy*dy + dz*dz );
    }
    
    /**

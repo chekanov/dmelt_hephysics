@@ -1,6 +1,7 @@
 package hephysics.jet;
 import java.util.*;
 import java.io.*;
+import net.jafama.FastMath;
 
 /**
  * Main class for jet clustering with generalized kt algorithms.
@@ -18,7 +19,7 @@ import java.io.*;
  */
 class ClusterSequence {
 
-  private final static double twopi = 2*Math.PI;
+  private final static double twopi = 2*FastMath.PI;
   private final static double max_rap = 1e5; // From FastJet
   private static double sq(double x) { return x*x; }
 
@@ -78,7 +79,7 @@ class ClusterSequence {
       final double pt2 = px*px + py*py;
       final double abs_pz = (pz < 0. ? -pz : pz);
 
-      phi = (pt2 == 0. ? 0. : Math.atan2(py,px)) + Math.PI;
+      phi = (pt2 == 0. ? 0. : FastMath.atan2(py,px)) + FastMath.PI;
       if (phi >= twopi) phi -= twopi;
       else if (phi < 0.) phi += twopi;
 
@@ -97,7 +98,7 @@ class ClusterSequence {
         // explicit knowledge of mass) and force non tachyonic mass
         double m2_pt2 = (E+pz)*(E-pz);
         if (m2_pt2 < pt2) m2_pt2 = pt2;
-        rap = 0.5*Math.log(m2_pt2/sq(E+abs_pz));
+        rap = 0.5*FastMath.log(m2_pt2/sq(E+abs_pz));
         if (pz > 0.) rap = -rap;
       }
 
@@ -154,8 +155,8 @@ class ClusterSequence {
     }
 
     public boolean update_near(PseudoJet p, boolean both) {
-      double deltaPhi = Math.abs(phi-p.phi);
-      if (deltaPhi > Math.PI) deltaPhi = twopi - deltaPhi;
+      double deltaPhi = FastMath.abs(phi-p.phi);
+      if (deltaPhi > FastMath.PI) deltaPhi = twopi - deltaPhi;
       double Ril = sq(rap-p.rap) + sq(deltaPhi);
 
       if (Ril < Rij) { Rij = Ril; near = p; }
@@ -167,7 +168,7 @@ class ClusterSequence {
 
     public void update_dij() {
       if (near==null) dij = Double.MAX_VALUE;
-      else dij = Math.min(diB,near.diB)*Rij/jetR2;
+      else dij = FastMath.min(diB,near.diB)*Rij/jetR2;
     }
 
     public void rm_near() {
@@ -400,7 +401,7 @@ class ClusterSequence {
 
       } else {
         // identify as jet
-        if ( Math.sqrt(sq(p.px)+sq(p.py)) >= min_jet_pt ) {
+        if ( FastMath.sqrt(sq(p.px)+sq(p.py)) >= min_jet_pt ) {
           ParticleD jet = new ParticleD(p.px, p.py, p.pz, p.E);
           jets.add(jet);
           if (p.consts==null) jet.addConstituent(p.id);

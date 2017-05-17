@@ -1,12 +1,12 @@
 package hephysics.vec;
 
 import java.io.Serializable;
-
 import hephysics.matrix.BasicMatrix;
 import hephysics.matrix.Matrix;
 import hephysics.matrix.MatrixOp;
 import hephysics.matrix.MutableMatrix;
 import hephysics.matrix.MatrixOp.InvalidMatrixException;
+import net.jafama.FastMath;
 
 /**
  * Hep 3x3 matrices
@@ -112,12 +112,12 @@ public class Hep3Matrix extends  BasicMatrix {
 	    */
 	   public void setPassiveEuler( double phi, double theta, double psi)
 	   {
-	      double cth = Math.cos(theta);
-	      double sth = Math.sin(theta);
-	      double cphi = Math.cos(phi);
-	      double sphi = Math.sin(phi);
-	      double cpsi = Math.cos(psi);
-	      double spsi = Math.sin(psi);
+	      double cth = FastMath.cos(theta);
+	      double sth = FastMath.sin(theta);
+	      double cphi = FastMath.cos(phi);
+	      double sphi = FastMath.sin(phi);
+	      double cpsi = FastMath.cos(psi);
+	      double spsi = FastMath.sin(psi);
 	      m_dmat[0][0] =  cpsi*cphi - cth*sphi*spsi;
 	      m_dmat[0][1] =  cpsi*sphi + cth*cphi*spsi;
 	      m_dmat[0][2] =  spsi*sth;
@@ -142,12 +142,12 @@ public class Hep3Matrix extends  BasicMatrix {
 	    */
 	   public void setActiveEuler( double phi, double theta, double psi)
 	   {
-	      double cth = Math.cos(theta);
-	      double sth = Math.sin(theta);
-	      double cphi = Math.cos(phi);
-	      double sphi = Math.sin(phi);
-	      double cpsi = Math.cos(psi);
-	      double spsi = Math.sin(psi);
+	      double cth = FastMath.cos(theta);
+	      double sth = FastMath.sin(theta);
+	      double cphi = FastMath.cos(phi);
+	      double sphi = FastMath.sin(phi);
+	      double cpsi = FastMath.cos(psi);
+	      double spsi = FastMath.sin(psi);
 	      m_dmat[0][0] =  cpsi*cphi - cth*sphi*spsi;
 	      m_dmat[1][0] =  cpsi*sphi + cth*cphi*spsi;
 	      m_dmat[2][0] =  spsi*sth;

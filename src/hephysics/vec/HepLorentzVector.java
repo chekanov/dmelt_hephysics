@@ -3,7 +3,7 @@ package hephysics.vec;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
-
+import net.jafama.FastMath;
 /**
  * a HepLorentzVector (4-vector).
  * It can hold either space-coordinate and time (x,y,z,t) 
@@ -299,7 +299,7 @@ public class HepLorentzVector implements Serializable {
 	public void boost(double bx, double by, double bz) {
 
 		double b2 = bx * bx + by * by + bz * bz;
-		double gamma = 1.0 / Math.sqrt(1.0 - b2);
+		double gamma = 1.0 / FastMath.sqrt(1.0 - b2);
 		double bp = bx * v.x() + by * v.y() + bz * v.z();
 		double gamma2 = b2 > 0 ? (gamma - 1.0) / b2 : 0.0;
 
@@ -372,7 +372,7 @@ public class HepLorentzVector implements Serializable {
 	 */
 	 public double et()  {
 	  double etet = et2();
-      return e() < 0.0 ? -Math.sqrt(etet) : Math.sqrt(etet);
+      return e() < 0.0 ? -FastMath.sqrt(etet) : FastMath.sqrt(etet);
 	 }
 
 	 /**
@@ -389,7 +389,7 @@ public class HepLorentzVector implements Serializable {
 	  */
 	 public double mt() { 
 		 double mm = mt2();
-		 return mm < 0.0 ? -Math.sqrt(-mm) : Math.sqrt(mm);	 
+		 return mm < 0.0 ? -FastMath.sqrt(-mm) : FastMath.sqrt(mm);	 
 	 }
 
 	 /**
@@ -418,8 +418,8 @@ public class HepLorentzVector implements Serializable {
 	  * @return invariant mass
 	  */
 	 public  double  m() { 
-		 if (m2()>=0) return Math.sqrt(m2());
-		 else  return -Math.sqrt(-m2());
+		 if (m2()>=0) return FastMath.sqrt(m2());
+		 else  return -FastMath.sqrt(-m2());
 		 
 		 }
 	 
@@ -440,7 +440,7 @@ public class HepLorentzVector implements Serializable {
 	  * @return
 	  */
 		public boolean isLightlike(double epsilon)  {
-		 return Math.abs(restMass2()) < 2.0 * epsilon * energy * energy;
+		 return FastMath.abs(restMass2()) < 2.0 * epsilon * energy * energy;
 		 }
 		 
 
@@ -610,7 +610,7 @@ public class HepLorentzVector implements Serializable {
 		      if ( beta >= 1.0 )
 		         throw new RuntimeException("Boost beta >= 1.0 !");
 
-		      double gamma = 1./Math.sqrt(1.-beta*beta);
+		      double gamma = 1./FastMath.sqrt(1.-beta*beta);
 
 		      double     t = fourVector.t();
 		      Hep3Vector v = fourVector.v3();
@@ -722,7 +722,7 @@ public class HepLorentzVector implements Serializable {
 	 public double rapidity()  {
 		  
 		 double m = mag();
-		 if (m> pz())  return 0.5*Math.log( (m+pz())/(m-pz()) );
+		 if (m> pz())  return 0.5*FastMath.log( (m+pz())/(m-pz()) );
 		 else return -10e10;
 		    
 		   
@@ -756,7 +756,7 @@ public class HepLorentzVector implements Serializable {
 	 * @return
 	 */
 	public double mag() {
-		return Math.sqrt(VecOp.dot(this.v, this.v));
+		return FastMath.sqrt(VecOp.dot(this.v, this.v));
 	}
 
 	/**

@@ -3,7 +3,7 @@ package hephysics.vec;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
-
+import net.jafama.FastMath;
 /**
  * Basic implementation of a Hep3Vector
  * @author Gary Bower (grb@slac.stanford.edu)
@@ -58,7 +58,7 @@ public class Hep3Vector implements  Serializable
     */
    public double abs()
    {
-       return Math.sqrt(skp(this));
+       return FastMath.sqrt(skp(this));
    }
 
    
@@ -87,7 +87,7 @@ public class Hep3Vector implements  Serializable
     */
    public double phi()
    {
-	   return x == 0.0 && y == 0.0 ? 0.0 : Math.atan2(y,x);
+	   return x == 0.0 && y == 0.0 ? 0.0 : FastMath.atan2(y,x);
 
    }
    
@@ -279,7 +279,7 @@ public class Hep3Vector implements  Serializable
     * Transverse 
     * @return
     */
-  public double perp() { return Math.sqrt(perp2()); }
+  public double perp() { return FastMath.sqrt(perp2()); }
 
   
   /**
@@ -312,7 +312,7 @@ public class Hep3Vector implements  Serializable
        if(abs() <= 0.0D || momentum.abs() <= 0.0D)
          return 0.0D;
        else
-        return (double)(y * momentum.z() - z * momentum.y() <= 0.0D ? -1 : 1) * Math.acos(skp(momentum) / abs() / momentum.abs());
+        return (double)(y * momentum.z() - z * momentum.y() <= 0.0D ? -1 : 1) * FastMath.acos(skp(momentum) / abs() / momentum.abs());
    }
 
    
@@ -390,7 +390,7 @@ public class Hep3Vector implements  Serializable
       if ( beta >= 1.0 )
          throw new RuntimeException("Boost beta >= 1.0 !");
 
-      double gamma = 1./Math.sqrt(1.-beta*beta);
+      double gamma = 1./FastMath.sqrt(1.-beta*beta);
 
       double     t = fourVector.t();
       Hep3Vector v = fourVector.v3();
@@ -446,7 +446,7 @@ public class Hep3Vector implements  Serializable
     * @return
     */
    public double theta() {
-	   return x == 0.0 && y == 0.0 && z == 0.0 ? 0.0 : Math.atan2(perp(),z);
+	   return x == 0.0 && y == 0.0 && z == 0.0 ? 0.0 : FastMath.atan2(perp(),z);
    }
    
    
@@ -468,8 +468,8 @@ public class Hep3Vector implements  Serializable
     */
    public void setPhi(double ph) {
 	    double xy   = perp();
-	    setX(xy*Math.cos(ph));
-	    setY(xy*Math.sin(ph));
+	    setX(xy*FastMath.cos(ph));
+	    setY(xy*FastMath.sin(ph));
    }
    
    /**
@@ -480,7 +480,7 @@ public class Hep3Vector implements  Serializable
 	  
 	   
 	   double cosTheta = cosTheta();
-	   if (cosTheta*cosTheta < 1) return -0.5* Math.log( (1.0-cosTheta)/(1.0+cosTheta) );
+	   if (cosTheta*cosTheta < 1) return -0.5* FastMath.log( (1.0-cosTheta)/(1.0+cosTheta) );
 	   else        return -10e10;
 	    
 	   
@@ -494,7 +494,7 @@ public class Hep3Vector implements  Serializable
  public double rapidity()  {
 	  
 	 double m = mag();
-	 if (mag()> z)  return 0.5*Math.log( (m+z)/(m-z) );
+	 if (mag()> z)  return 0.5*FastMath.log( (m+z)/(m-z) );
 	 else return -10e10;
 	    
 	   
@@ -508,7 +508,7 @@ public class Hep3Vector implements  Serializable
    
    public double mag()
    {
-      return Math.sqrt(x*x + y*y + z*z);
+      return FastMath.sqrt(x*x + y*y + z*z);
    } 
    public double magnitudeSquared()
    {

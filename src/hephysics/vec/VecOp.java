@@ -4,6 +4,7 @@ import hephysics.matrix.MatrixOp;
 import java.util.Formatter;
 import java.util.Iterator;
 import java.util.List;
+import net.jafama.FastMath;
 
 /**
  * Utility methods for dealing with 3 and 4 vectors.
@@ -120,7 +121,7 @@ public class VecOp
       if ( beta >= 1.0 )
          throw new RuntimeException("Boost beta >= 1.0 !");
       
-      double gamma = 1./Math.sqrt(1.-beta*beta);
+      double gamma = 1./FastMath.sqrt(1.-beta*beta);
       
       double     t = fourVector.t();
       Hep3Vector v = fourVector.v3();
@@ -148,7 +149,7 @@ public class VecOp
    }
    public static double phi(Hep3Vector vector)
    {
-      return Math.atan2(vector.y(),vector.x());
+      return FastMath.atan2(vector.y(),vector.x());
    }
    public static String toString(Hep3Vector  v)
    {

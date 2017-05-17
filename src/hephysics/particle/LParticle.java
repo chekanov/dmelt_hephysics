@@ -5,7 +5,7 @@ import hephysics.vec.HepLorentzVector;
 import java.io.Serializable;
 import java.util.Formatter;
 import java.util.Random;
-
+import net.jafama.FastMath;
 import jhplot.gui.HelpBrowser;
 
 /**
@@ -348,10 +348,10 @@ public class LParticle extends HepLorentzVector implements
 	 * @return
 	 */
 	public void setThetaPhiP(double theta, double phi, double P) {
-		double e = Math.sqrt(P * P + getMass() * getMass());
-		double pX = P * Math.sin(theta) * Math.cos(phi);
-		double pY = P * Math.sin(theta) * Math.sin(phi);
-		double pZ = P * Math.cos(theta);
+		double e = FastMath.sqrt(P * P + getMass() * getMass());
+		double pX = P * FastMath.sin(theta) * FastMath.cos(phi);
+		double pY = P * FastMath.sin(theta) * FastMath.sin(phi);
+		double pZ = P * FastMath.cos(theta);
 		setV3(pX, pY, pZ);
 		setE(e);
 	}
@@ -371,17 +371,17 @@ public class LParticle extends HepLorentzVector implements
 	 *            energy
 	 */
 	public void setPtEtaPhiE(double pt, double eta, double phi, double e) {
-		double apt = Math.abs(pt);
-		double px = apt * Math.cos(phi);
-		double py = apt * Math.sin(phi);
-		double pz = apt * Math.sinh(eta);
+		double apt = FastMath.abs(pt);
+		double px = apt * FastMath.cos(phi);
+		double py = apt * FastMath.sin(phi);
+		double pz = apt * FastMath.sinh(eta);
 		setPxPyPzE(px, py, pz, e);
 	}
 
 	/**
 	 * Set 4-momentum of a particle using transverse momentum (pt),
 	 * pseudorapidity (eta) and azimuthal angle (phi) and mass (m). In this
-	 * case, the energy is Math.sqrt(px*px+py*py+pz*pz-m*m).
+	 * case, the energy is FastMath.sqrt(px*px+py*py+pz*pz-m*m).
 	 * <p>
 	 * 
 	 * @param pt
@@ -394,16 +394,16 @@ public class LParticle extends HepLorentzVector implements
 	 *            mass
 	 */
 	public void setPtEtaPhiM(double pt, double eta, double phi, double m) {
-		double apt = Math.abs(pt);
-		double px = apt * Math.cos(phi);
-		double py = apt * Math.sin(phi);
-		double pz = apt * Math.sinh(eta);
+		double apt = FastMath.abs(pt);
+		double px = apt * FastMath.cos(phi);
+		double py = apt * FastMath.sin(phi);
+		double pz = apt * FastMath.sinh(eta);
 		this.mass = m;
 		double ee = px * px + py * py + pz * pz - m * m;
 		if (ee < 0)
 			ee = 0;
 		else
-			ee = Math.sqrt(ee);
+			ee = FastMath.sqrt(ee);
 		setPxPyPzE(px, py, pz, ee);
 	}
 
@@ -413,7 +413,7 @@ public class LParticle extends HepLorentzVector implements
 	 * @return
 	 */
 	public double abs() {
-		return Math.sqrt(skp(this));
+		return FastMath.sqrt(skp(this));
 	}
 
 	/**
@@ -447,7 +447,7 @@ public class LParticle extends HepLorentzVector implements
 		if (abs() <= 0.0D || momentum.abs() <= 0.0D)
 			return 0.0D;
 		else
-			return Math.acos(skp(momentum) / abs() / momentum.abs());
+			return FastMath.acos(skp(momentum) / abs() / momentum.abs());
 
 	}
 
@@ -461,9 +461,9 @@ public class LParticle extends HepLorentzVector implements
 		double s = energy * energy - skp(this);
 
 		if (s > 0)
-			return Math.sqrt(s);
+			return FastMath.sqrt(s);
 		else
-			return -1 * Math.sqrt(-1.0 * s);
+			return -1 * FastMath.sqrt(-1.0 * s);
 
 	}
 
@@ -497,7 +497,7 @@ public class LParticle extends HepLorentzVector implements
 		// CM energies and momentum
 		double e1 = (m * m + m1 * m1 - m2 * m2) / (2.0 * m);
 		double e2 = (m * m - m1 * m1 + m2 * m2) / (2.0 * m);
-		double P = Math.sqrt(e1 * e1 - m1 * m1);
+		double P = FastMath.sqrt(e1 * e1 - m1 * m1);
 
 		double ran1 = 0;
 		double ran2 = 0;
@@ -509,12 +509,12 @@ public class LParticle extends HepLorentzVector implements
 		}
 
 		// Isotropic random angles
-		double theta = Math.acos(2.0 * ran1 - 1.0);
-		double phi = 2.0 * Math.PI * ran2;
+		double theta = FastMath.acos(2.0 * ran1 - 1.0);
+		double phi = 2.0 * FastMath.PI * ran2;
 
-		double pX = P * Math.sin(theta) * Math.cos(phi);
-		double pY = P * Math.sin(theta) * Math.sin(phi);
-		double pZ = P * Math.cos(theta);
+		double pX = P * FastMath.sin(theta) * FastMath.cos(phi);
+		double pY = P * FastMath.sin(theta) * FastMath.sin(phi);
+		double pZ = P * FastMath.cos(theta);
 
 		// set the 4-momenta
 		prod1.setV3(pX, pY, pZ);
@@ -537,7 +537,7 @@ public class LParticle extends HepLorentzVector implements
 		double betay = parent.v3().y() / parent.e();
 		double betaz = parent.v3().z() / parent.e();
 		double beta2 = betax * betax + betay * betay + betaz * betaz;
-		double gamma = 1.0 / Math.sqrt(1.0 - beta2);
+		double gamma = 1.0 / FastMath.sqrt(1.0 - beta2);
 		double dot = betax * v.x() + betay * v.y() + betaz * v.z();
 		double prod = gamma * (gamma * dot / (1.0 + gamma) + energy);
 

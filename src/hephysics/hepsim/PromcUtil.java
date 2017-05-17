@@ -4,7 +4,7 @@ import hephysics.jet.*;
 import hephysics.particle.*;
 import hephysics.vec.*;
 import java.util.*;
-
+import net.jafama.FastMath;
 import proto.*;
 import promc.io.*;
 
@@ -121,7 +121,7 @@ public class PromcUtil {
                                                 pa.getPy(j) / (double) unit,
                                                 pa.getPz(j) / (double) unit,
                                                 pa.getEnergy(j) / (double) unit);
-                   if (lp.perp()>pTmin && Math.abs(lp.pseudoRapidity())<etaMax) par.add(lp);
+                   if (lp.perp()>pTmin && FastMath.abs(lp.pseudoRapidity())<etaMax) par.add(lp);
                 }
                 }
                 return par;
@@ -217,7 +217,7 @@ static public List<ParticleF> getParticleFList(ProMCHeaderFile.ProMCHeader heade
                     (float)(pa.getEnergy(j) / (double) unit)); 
         	
    
-           if (lp.getEt()>pTmin && Math.abs(lp.getEta())<etaMax) par.add(lp);
+           if (lp.getEt()>pTmin && FastMath.abs(lp.getEta())<etaMax) par.add(lp);
         }
         }
         return par;
@@ -268,7 +268,7 @@ static public List<ParticleF> getParticleFList(pronlo.io.ProMCHeaderFile.ProMCHe
                     (float)(pa.getPy(j) / (double) unit),
                     (float)(pa.getPz(j) / (double) unit),
                     (float)(pa.getEnergy(j) / (double) unit)); 
-           if (lp.getEt()>pTmin && Math.abs(lp.getEta())<etaMax) par.add(lp);
+           if (lp.getEt()>pTmin && FastMath.abs(lp.getEta())<etaMax) par.add(lp);
         }
         return par;
         }
@@ -316,7 +316,7 @@ static public List<ParticleD> getParticleDList(pronlo.io.ProMCHeaderFile.ProMCHe
                     (pa.getPy(j) / (double) unit),
                     (pa.getPz(j) / (double) unit),
                     (pa.getEnergy(j) / (double) unit)); 
-           if (lp.getPt()>pTmin && Math.abs(lp.eta())<etaMax) par.add(lp);
+           if (lp.getPt()>pTmin && FastMath.abs(lp.eta())<etaMax) par.add(lp);
         }
         return par;
         }
@@ -383,7 +383,7 @@ static public List<ParticleD> getParticleDList(ProMCHeaderFile.ProMCHeader heade
                     (float)(pa.getEnergy(j) / (double) unit)); 
         	
    
-           if (lp.getPt()>pTmin && Math.abs(lp.eta())<etaMax) par.add(lp);
+           if (lp.getPt()>pTmin && FastMath.abs(lp.eta())<etaMax) par.add(lp);
         }
         }
         return par;

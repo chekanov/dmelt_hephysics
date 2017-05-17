@@ -4,6 +4,7 @@ package hephysics.jet;
 import java.io.Serializable;
 import java.text.*;
 import java.util.*;
+import net.jafama.FastMath;
 
 /**
  * A class representing a jet or particle with pre-computed px,py,pz,e (double
@@ -20,7 +21,7 @@ public class ParticleD implements Comparable<ParticleD>, Serializable {
 
 	private double px, py, pz;
 	private double energy;
-	private final double PI2 = Math.PI * 2;
+	private final double PI2 = FastMath.PI * 2;
 	private double phi, pt2, rapidity;
 	private DecimalFormat formatter = new DecimalFormat("0.###E0");
 	private ArrayList<Integer> consts;
@@ -70,7 +71,7 @@ public class ParticleD implements Comparable<ParticleD>, Serializable {
         /**
          * Set 4-momentum of a particle using transverse momentum (pt),
          * pseudorapidity (eta) and azimuthal angle (phi) and mass (m). In this
-         * case, the energy is Math.sqrt(px*px+py*py+pz*pz-m*m).
+         * case, the energy is FastMath.sqrt(px*px+py*py+pz*pz-m*m).
          * <p>
          * 
          * @param pt
@@ -84,15 +85,15 @@ public class ParticleD implements Comparable<ParticleD>, Serializable {
          */
         public void setPtEtaPhiM(double pt, double eta, double phi, double m) {
                 pt2 = pt*pt;
-                double apt=Math.abs(pt); 
-                px = apt * Math.cos(phi);
-                py = apt * Math.sin(phi);
-                pz = apt * Math.sinh(eta);
+                double apt=FastMath.abs(pt); 
+                px = apt * FastMath.cos(phi);
+                py = apt * FastMath.sin(phi);
+                pz = apt * FastMath.sinh(eta);
                 double ee = px * px + py * py + pz * pz - m * m;
                 if (ee < 0)
                         ee = 0;
                 else
-                        ee = Math.sqrt(ee);
+                        ee = FastMath.sqrt(ee);
                 setPxPyPzE(px, py, pz, ee);
         }
 
@@ -107,10 +108,10 @@ public class ParticleD implements Comparable<ParticleD>, Serializable {
 		if (pz == 0.0)
 			return -999;
 		double pt2 = px * px + py * py;
-		double theta = Math.atan2(Math.sqrt(pt2), pz);
+		double theta = FastMath.atan2(FastMath.sqrt(pt2), pz);
 		if (theta < 0)
-			theta += Math.PI;
-		return -1 * Math.log(Math.tan(theta / 2));
+			theta += FastMath.PI;
+		return -1 * FastMath.log(FastMath.tan(theta / 2));
 	}
 
 	/**
@@ -130,7 +131,7 @@ public class ParticleD implements Comparable<ParticleD>, Serializable {
 	 */
 	public double et() {
 		double etet = et2();
-		return e() < 0.0 ? -Math.sqrt(etet) : Math.sqrt(etet);
+		return e() < 0.0 ? -FastMath.sqrt(etet) : FastMath.sqrt(etet);
 	}
 
         /**
@@ -140,7 +141,7 @@ public class ParticleD implements Comparable<ParticleD>, Serializable {
          */
         public double mass() {
                 double m=energy*energy-px*px-py*py-pz*pz;
-                if (m>=0) return Math.sqrt(m);
+                if (m>=0) return FastMath.sqrt(m);
                 return -1;
         }
 
@@ -161,7 +162,7 @@ public class ParticleD implements Comparable<ParticleD>, Serializable {
 	public double rapidity() {
 		rapidity = -10e10;
 		if (energy > pz())
-			rapidity = 0.5 * Math.log((energy + pz) / (energy - pz));
+			rapidity = 0.5 * FastMath.log((energy + pz) / (energy - pz));
 		return rapidity;
 	}
 
@@ -171,7 +172,7 @@ public class ParticleD implements Comparable<ParticleD>, Serializable {
 	 * @return mag
 	 */
 	public double mag() {
-		return Math.sqrt(px * px + py * py + pz * pz);
+		return FastMath.sqrt(px * px + py * py + pz * pz);
 	}
 
 	/**
@@ -189,7 +190,7 @@ public class ParticleD implements Comparable<ParticleD>, Serializable {
 	 * @return Transverse momentum (pt)
 	 */
 	public double perp() {
-		return Math.sqrt(perp2());
+		return FastMath.sqrt(perp2());
 	}
 
 
@@ -242,7 +243,7 @@ public class ParticleD implements Comparable<ParticleD>, Serializable {
 		String se = formatter.format(energy);
 		String srap = formatter.format(rapidity);
 		String sphi = formatter.format(phi);
-		String set = formatter.format(Math.sqrt(pt2));
+		String set = formatter.format(FastMath.sqrt(pt2));
 		return "px=" + spx + " py=" + spy + " pz=" + spz + " e=" + se + " y="
 				+ srap + " phi=" + sphi + " pt=" + set;
 	}
@@ -298,7 +299,7 @@ public class ParticleD implements Comparable<ParticleD>, Serializable {
 	 * @return et transverse energy
 	 */
 	public double getPt() {
-		return Math.sqrt(pt2);
+		return FastMath.sqrt(pt2);
 	}
 
 	/**
@@ -350,7 +351,7 @@ public class ParticleD implements Comparable<ParticleD>, Serializable {
 	public double phi() {
 		if (px == 0)
 			return 0.0;
-		phi = Math.atan2(py, px);
+		phi = FastMath.atan2(py, px);
 		// if (phi<0) phi = PI2+phi;
 		return phi;
 	}

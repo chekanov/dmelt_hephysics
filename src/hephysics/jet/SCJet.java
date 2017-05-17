@@ -8,6 +8,7 @@ import java.util.*;
 import java.util.Collections;
 import java.util.StringTokenizer;
 import java.text.*;
+import net.jafama.FastMath;
 
 /**
  * SCJet is an implementation of the longitudinally-invariant kT, anti-KT and Cambridge/Aachen clustering
@@ -39,7 +40,7 @@ public class SCJet {
 	private double[] ktdistance1;
 	private double[][] ktdistance12; // keep dij distances
 	private ArrayList<ParticleD> jets;
-	private final double PI2 = Math.PI * 2;
+	private final double PI2 = FastMath.PI * 2;
 	private boolean debug = false;
 	private double minpt = 0;
 	private int mode = 1;
@@ -488,20 +489,20 @@ public class SCJet {
 		double phi1 = a.getPhi();
 		double phi2 = b.getPhi();
 		deltaPhi = phi2 - phi1;
-		if (deltaPhi > Math.PI)
+		if (deltaPhi > FastMath.PI)
 			deltaPhi = PI2 - deltaPhi;
-		if (deltaPhi < -Math.PI)
+		if (deltaPhi < -FastMath.PI)
 			deltaPhi = PI2 + deltaPhi;
 		rsq = (deltaEta * deltaEta + deltaPhi * deltaPhi);
 		esq = 0;
 		if (mode == 1)
-			esq = Math.min(a.getPt2(), b.getPt2()); // kT
+			esq = FastMath.min(a.getPt2(), b.getPt2()); // kT
 		else if (mode == 0)
 			esq = 1.0;  // C-A
 		else if (mode == -1)
-			esq = Math.min(1.0 / a.getPt2(), 1.0 / b.getPt2()); // antiKT
+			esq = FastMath.min(1.0 / a.getPt2(), 1.0 / b.getPt2()); // antiKT
 		else
-			esq = Math.min(a.getPt2(), b.getPt2()); // kT
+			esq = FastMath.min(a.getPt2(), b.getPt2()); // kT
 
 		return (esq * rsq / R2);
 	}
@@ -522,12 +523,12 @@ public class SCJet {
                 double phi1 = a.getPhi();
                 double phi2 = b.getPhi();
                 deltaPhi = phi2 - phi1;
-                if (deltaPhi > Math.PI)
+                if (deltaPhi > FastMath.PI)
                         deltaPhi = PI2 - deltaPhi;
-                if (deltaPhi < -Math.PI)
+                if (deltaPhi < -FastMath.PI)
                         deltaPhi = PI2 + deltaPhi;
                 rsq = (deltaEta * deltaEta + deltaPhi * deltaPhi);
-                return Math.sqrt(rsq);
+                return FastMath.sqrt(rsq);
         }
 
 	/**

@@ -8,6 +8,7 @@ import java.util.*;
 import java.util.Collections;
 import java.util.StringTokenizer;
 import java.text.*;
+import net.jafama.FastMath;
 
 /**
  * JetN2 is an implementation of the longitudinally-invariant kT, anti-KT and
@@ -32,7 +33,7 @@ public class JetN2 {
 
 	private int recom = 1;
 	private double R;
-	private final double PI2 = Math.PI * 2;
+	private final double PI2 = FastMath.PI * 2;
 	private boolean debug = false;
 	private double minpt = 0;
 	private String type = "antikt";

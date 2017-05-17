@@ -1,6 +1,7 @@
 package hephysics.matrix;
 
 import java.util.Formatter;
+import net.jafama.FastMath;
 
 /**
  * Simple operations on matrices
@@ -41,7 +42,7 @@ public class MatrixOp
          {
             for (int j=k; j<order; j++)
             {
-               if (Math.abs(array[i][j]) > Math.abs(amax))
+               if (FastMath.abs(array[i][j]) > FastMath.abs(amax))
                {
                   amax = array[i][j];
                   ik[k] = i;
@@ -189,7 +190,7 @@ public class MatrixOp
          {
             for (int j=k; j<order; j++)
             {
-               if (Math.abs(array[i][j]) > Math.abs(amax))
+               if (FastMath.abs(array[i][j]) > FastMath.abs(amax))
                {
                   amax = array[i][j];
                   ik[k] = i;

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.StringTokenizer;
 import java.text.*;
+import net.jafama.FastMath;
 
 /**
  * Longitudinally-invariant kT, anti-KT and  Cambridge/Aachen clustering algorithms (light-weight implementation).  
@@ -27,7 +28,7 @@ public class KTjet {
 	private float[] ktdistance1;
 	private float[][] ktdistance12;
 	private ArrayList<ParticleF> jets;
-	static private final float PI2 = (float)(Math.PI * 2);
+	static private final float PI2 = (float)(FastMath.PI * 2);
 	private boolean debug=false;
 	private double minpt=0;
 	private static int mode=1;
@@ -358,14 +359,14 @@ public class KTjet {
                 double phi1 = a.getPhi();
                 double phi2 = b.getPhi();
                 deltaPhi = phi2 - phi1;
-                if (deltaPhi>Math.PI) deltaPhi=PI2-deltaPhi;
-                if (deltaPhi<-Math.PI) deltaPhi=PI2+deltaPhi;
+                if (deltaPhi>FastMath.PI) deltaPhi=PI2-deltaPhi;
+                if (deltaPhi<-FastMath.PI) deltaPhi=PI2+deltaPhi;
                 rsq = (deltaEta*deltaEta + deltaPhi*deltaPhi);
                 esq = 0;
-                if      (mode==1) esq=Math.min(a.getEt2(), b.getEt2());         // kT
-                else if (mode==0) esq=Math.min(a.getEt(), b.getEt());           // C-A
-                else if (mode==-1) esq=Math.min(1.0/a.getEt2(), 1.0/b.getEt2()); // antiKT
-                else esq=Math.min(a.getEt2(), b.getEt2());         // kT
+                if      (mode==1) esq=FastMath.min(a.getEt2(), b.getEt2());         // kT
+                else if (mode==0) esq=FastMath.min(a.getEt(), b.getEt());           // C-A
+                else if (mode==-1) esq=FastMath.min(1.0/a.getEt2(), 1.0/b.getEt2()); // antiKT
+                else esq=FastMath.min(a.getEt2(), b.getEt2());         // kT
 
                 return (float)(esq * rsq/R2);
          }
@@ -386,12 +387,12 @@ public class KTjet {
                 double phi1 = a.getPhi();
                 double phi2 = b.getPhi();
                 deltaPhi = phi2 - phi1;
-                if (deltaPhi > Math.PI)
+                if (deltaPhi > FastMath.PI)
                         deltaPhi = PI2 - deltaPhi;
-                if (deltaPhi < -Math.PI)
+                if (deltaPhi < -FastMath.PI)
                         deltaPhi = PI2 + deltaPhi;
                 rsq = (deltaEta * deltaEta + deltaPhi * deltaPhi);
-                return (float)Math.sqrt(rsq);
+                return (float)FastMath.sqrt(rsq);
         }
 
 
